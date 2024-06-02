@@ -18,7 +18,7 @@ async fn main() -> Result<()> {
         FROM {} where Nationality = 'Italy'",
         file
     );
-
+    println!("{sql}");
     // let ast = sqlparser::parser::Parser::parse_sql(&queryer::TyrDialect::default(), &sql);
     // println!("{:#?}", ast);
 
