@@ -221,6 +221,7 @@ impl TryFrom<Value> for LiteralValue {
         match v.0 {
             SqlValue::Number(v, _) => Ok(LiteralValue::Float64(v.parse().unwrap())),
             SqlValue::Boolean(v) => Ok(LiteralValue::Boolean(v)),
+            SqlValue::SingleQuotedString(v) => Ok(LiteralValue::String(v)),
             SqlValue::Null => Ok(LiteralValue::Null),
             v => Err(anyhow!("Value {} is not supported", v)),
         }
