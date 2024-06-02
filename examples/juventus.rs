@@ -1,6 +1,5 @@
 use anyhow::Result;
-use queryer::{query, TyrDialect};
-use sqlparser::parser::Parser;
+use queryer::query;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -20,8 +19,8 @@ async fn main() -> Result<()> {
         file
     );
 
-    let ast = Parser::parse_sql(&TyrDialect::default(), &sql);
-    println!("{:#?}", ast);
+    // let ast = sqlparser::parser::Parser::parse_sql(&queryer::TyrDialect::default(), &sql);
+    // println!("{:#?}", ast);
 
     let df1 = query(sql, "json").await?;
     println!("{:?}", df1);
