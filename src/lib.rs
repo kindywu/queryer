@@ -50,7 +50,7 @@ impl DataSet {
 }
 
 /// 从 from 中获取数据，从 where 中过滤，最后选取需要返回的列
-pub async fn query<T: AsRef<str>>(sql: T) -> Result<DataSet> {
+pub async fn query<T: AsRef<str>>(sql: T, suffix: &str) -> Result<DataSet> {
     let ast = Parser::parse_sql(&TyrDialect::default(), sql.as_ref())?;
 
     if ast.len() != 1 {
@@ -71,8 +71,8 @@ pub async fn query<T: AsRef<str>>(sql: T) -> Result<DataSet> {
     info!("retrieving data from source: {}", source);
 
     // 从 source 读入一个 DataSet
-    let data = retrieve_data(source).await?;
-    let ds = detect_content(data).load()?;
+    let data = retrieve_data(source.to_string()).await?;
+    let ds = detect_content(data, suffix)?.load()?;
 
     let mut filtered = match condition {
         Some(expr) => ds.0.lazy().filter(expr),

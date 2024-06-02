@@ -13,7 +13,7 @@ async fn main() -> Result<()> {
         FROM {} where new_deaths >= 200 ORDER BY new_cases DESC",
         url
     );
-    let df1 = query(sql).await?;
+    let df1 = query(sql, "csv").await?;
     println!("{:?}", df1);
 
     Ok(())
