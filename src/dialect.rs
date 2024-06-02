@@ -19,6 +19,7 @@ impl Dialect for TyrDialect {
 }
 
 /// 测试辅助函数
+#[allow(dead_code)]
 fn example_sql() -> String {
     let url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/latest/owid-covid-latest.csv";
 
