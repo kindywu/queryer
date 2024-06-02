@@ -1,12 +1,7 @@
 use anyhow::{anyhow, Result};
 use tokio::fs;
 
-pub trait Fetch {
-    type Error;
-    async fn fetch(&self) -> Result<String, Self::Error>;
-}
-
-/// 从文件源或者 http 源中获取数据，返回字符串
+// 从文件源或者 http 源中获取数据，返回字符串
 pub async fn retrieve_data(source: impl AsRef<str>) -> Result<String> {
     let name = source.as_ref();
     match &name[..4] {
@@ -16,6 +11,11 @@ pub async fn retrieve_data(source: impl AsRef<str>) -> Result<String> {
         "file" => FileFetcher(name).fetch().await,
         _ => Err(anyhow!("We only support http/https/file at the moment")),
     }
+}
+
+pub trait Fetch {
+    type Error;
+    async fn fetch(&self) -> Result<String, Self::Error>;
 }
 
 struct UrlFetcher<'a>(pub(crate) &'a str);
