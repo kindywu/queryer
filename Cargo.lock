@@ -1657,7 +1657,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "queryer"
+name = "queryer-sql-polars"
 version = "0.1.0"
 dependencies = [
  "anyhow",
