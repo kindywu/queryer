@@ -1,4 +1,4 @@
-use queryer::TyrDialect;
+use queryer_sql_polars::TyrDialect;
 use sqlparser::{dialect::GenericDialect, parser::Parser};
 
 fn main() {

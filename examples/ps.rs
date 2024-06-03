@@ -1,5 +1,5 @@
 use anyhow::Result;
-use queryer::query;
+use queryer_sql_polars::query;
 
 #[tokio::main]
 async fn main() -> Result<()> {
