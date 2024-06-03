@@ -5,6 +5,8 @@ use queryer::query;
 async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
 
+    // For windows power shell, we need to run the encoding to utf-8
+    // [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
     let file = "comm://tasklist";
 
     let sql = format!(

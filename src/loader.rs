@@ -69,31 +69,31 @@ impl Load for TsvLoader {
     type Error = anyhow::Error;
 
     fn load(self) -> Result<DataSet, Self::Error> {
-        let df = parse_tasklist_output(&self.0)?;
+        let df = parse_command_output(&self.0)?;
         Ok(DataSet(df))
     }
 }
-fn parse_tasklist_output(output: &str) -> Result<DataFrame> {
-    let mut lines = output.lines();
-
-    // 跳过空行
-    lines.next();
-    // 获取标题行
-    let header_line = lines
-        .next()
-        .ok_or_else(|| anyhow::anyhow!("No header found"))?;
-
-    let re = Regex::new(r"(\s{2,})").unwrap(); // 匹配两个或以上的空格
-    let headers: Vec<&str> = re.split(header_line).collect();
-
-    //跳过---
-    lines.next();
+fn parse_command_output(output: &str) -> Result<DataFrame> {
+    let lines = output.lines();
 
     // 解析每一行数据
     let mut data: Vec<Vec<String>> = Vec::new();
+    let mut headers: Vec<&str> = Vec::new();
     for line in lines {
+        // 跳过空行
         if line.trim().is_empty() {
             continue;
+        }
+
+        // 跳过分割行
+        if line.starts_with("====") {
+            continue;
+        }
+
+        // 获取标题行
+        if headers.is_empty() {
+            let re = Regex::new(r"(\s{2,})").unwrap(); // 匹配两个或以上的空格
+            headers = re.split(line).collect();
         }
 
         // 使用正则表达式来正确解析列
