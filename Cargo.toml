@@ -5,7 +5,6 @@ edition = "2021"
 
 description = "A useful tool for use SQL to query data from `url`, `file` and `comm`."
 license = "MIT"
-license-file = "LICENSE"
 documentation = "https://docs.rs/queryer"
 homepage = "https://github.com/kindywu"
 repository = "https://github.com/kindywu/queryer"
